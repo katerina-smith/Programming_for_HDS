@@ -1,0 +1,157 @@
+# Diabetes Risk Factor Analysis - Week 2 Reproducibility Exercise
+
+## Purpose and Overview
+
+This notebook provides an exploratory statistical analysis of a diabetes
+risk-factor dataset, which was collected from a cohort of female patients. It was
+originally developed for internal review but has now been reorganized into a
+reproducible workflow so that a data science team at another clinical site has the
+ability to execute it independently and obtain the same results.
+
+With this notebook, a data science team will be able to:
+
+- Load and validate the dataset.
+- Summarize descriptive statistics.
+- Visualize individual variables and the relationship between variables.
+- Test whether two clinical measurements (glucose and BMI) differ significantly
+  between patients with and without diabetes.
+
+**How to use this notebook:** run every cell from top to bottom, in order, or
+alternatively "Run All." A description of each step is provided as a markdown
+cell in each step, along with instructions on how to interpret each output.
+
+## Dataset Source and Provenance
+
+**Dataset:** Pima Indians Diabetes Dataset (provided for this course as
+`Example_Dataset_Diabetes.csv`).
+
+**Original source:** National Institute of Diabetes and Digestive and Kidney
+Diseases (NIDDK), distributed via the UCI Machine Learning Repository / Kaggle.
+The version used in this notebook has been provided by the course as a teaching
+dataset.
+
+**Population:** 768 female patients of Pima Indian heritage, age 21 and older.
+
+**Columns:**
+
+| Column | Description |
+|---|---|
+| Pregnancies | Number of times pregnant |
+| Glucose | Plasma glucose concentration (2-hour oral glucose tolerance test), mg/dL |
+| D_BP | Diastolic blood pressure, mm Hg |
+| Skin_Thickness | Triceps skinfold thickness, mm |
+| Insulin | 2-hour serum insulin, mu U/mL |
+| BMI | Body mass index, kg/m² |
+| Pedigree | Diabetes pedigree function (a score estimating diabetes likelihood from family history) |
+| Age | Age in years |
+| Outcome | Target variable: 1 = diabetes, 0 = no diabetes |
+
+**Known data-quality caveat:** in this dataset, missing measurements for Glucose,
+D_BP, Skin_Thickness, Insulin, and BMI appear to have been encoded as 0 rather
+than as a true missing value (a value of 0 mm Hg blood pressure or 0 mg/dL glucose
+is not physiologically possible in a living patient). This notebook documents this
+pattern in the Data Validation and Data Preparation sections below.
+
+**Redistribution:** this dataset is included directly in this project's GitHub
+repository (`Example_Dataset_Diabetes.csv`).
+
+## Required Software and Libraries
+
+This analysis uses the following Python libraries:
+
+| Library | Purpose | Version |
+|---|---|---|
+| pandas | Loading and manipulating tabular data | 2.x |
+| numpy | Numerical operations | 1.2x |
+| scipy | Statistical tests (t-test, Mann-Whitney U) | 1.1x |
+| matplotlib | Plotting | 3.x |
+| seaborn | Statistical visualizations (heatmap) | 0.13.x |
+
+If you are running this in Google Colab, all of these libraries are pre-installed,
+so installing them is not necessary. If you are running this outside Colab,
+uncomment and run the `pip install` line in the Setup and Environment cell once,
+before running the rest of the notebook. A `requirements.txt` listing these
+libraries is included in this repository.
+
+A fixed random seed is set in that same cell and reused everywhere randomness
+occurs, so that every execution of this notebook will produce the same results.
+
+## Setup / Installation Instructions
+
+**Option A: Google Colab (recommended, no setup required):**
+Open the notebook using the Colab link below. All required libraries are
+pre-installed in Colab.
+
+**Option B: Local Jupyter / VS Code:**
+1. Clone this repository:
+   ```
+   git clone https://github.com/katerina-smith/Programming_for_HDS.git
+   cd Programming_for_HDS
+   ```
+2. Install dependencies:
+   ```
+   pip install -r requirements.txt
+   ```
+3. Launch Jupyter (or open the folder in VS Code) and open the ipynb file.
+
+## How to Execute the Notebook
+
+The cell loading the dataset uses a two-step approach so it works for any user,
+in any environment, without needing to edit the code:
+1. If the CSV file is present in the current working directory, it is loaded
+   directly.
+2. If it is not present in the current working directory, it is retrieved
+   directly from this project's GitHub repository.
+
+Run every cell from top to bottom, in order:
+- In Colab: **Runtime → Restart session and run all**.
+- In Jupyter: **Kernel → Restart Kernel and Run All Cells**.
+
+No manual inputs, file uploads, or configuration changes are required.
+
+## Expected Outputs
+
+Running the notebook top-to-bottom produces:
+
+- A dataset validation summary confirming the expected shape, columns, and
+  numeric format.
+- Descriptive statistics for all numeric variables.
+- Visualizations of individual variables and of the relationships between
+  variables, including how a patient characteristic relates to diabetes status.
+- A Spearman correlation matrix and heatmap.
+- Results of two statistical tests comparing patients with and without diabetes:
+  an independent-samples t-test (glucose) and a Mann-Whitney U test (BMI).
+- A reproducibility check: a random sample of patients and a 
+  bootstrap-resampled estimate.
+
+## Dataset Requirements
+
+- `Example_Dataset_Diabetes.csv` must be present in the same folder as the
+  notebook (included in this repository), or it will be retrieved automatically
+  from this project's GitHub repository.
+- No other files are required.
+
+## Assumptions and Limitations
+
+- **Missing data encoded as zero.** Glucose, D_BP, Skin_Thickness, Insulin, and
+  BMI all contain physiologically implausible zero values that likely represent
+  missingness. This notebook does not impute or remove them; all descriptive
+  statistics, tests, and correlations conducted include these zero values. The
+  purpose of this exercise is to demonstrate a transparent, reproducible workflow
+  structure while still preserving the notebook's original analytical results.
+- **Cross-sectional, observational data.** All relationships reported here are
+  associations and do not establish causality.
+- **Single population.** This dataset reflects one specific patient population.
+
+## Computational Environment
+
+A data scientist at another clinical site should be able to run this notebook by
+selecting **Runtime → Restart session and run all** in Colab, using only the
+dataset included in this repository. The figures and statistics obtained should
+match the results reported in the notebook.
+
+##AI Use
+
+Anthropic. Claude. Used to improve documentation, give examples of optimal 
+reproducible workflow, and troubleshoot/optimize code. Also used to generate
+ examples of README documentation in GitHub.
